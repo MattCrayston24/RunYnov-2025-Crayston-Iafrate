@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import Users from "./pages/Users";
+import UserCourses from "./pages/UserCourses";
+import UserDetail from "./pages/UserDetail";
+import AllCourses from "./pages/AllCourses";
+import GoalTemplateAdmin from "./pages/GoalsAdmin";
+import RecentLogins from "./pages/RecentLogins";
+import AdminNotifications from "./pages/Notifications";
+import LeaderboardAdmin from "./pages/LeaderboardAdmin";
+import Feedbacks from "./pages/Feedbacks";
+import CommentsAdmin from "./pages/CommentsAdmin";
 
-function App() {
-  const [count, setCount] = useState(0)
 
+
+export default function App() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/users/:id/courses" element={<UserCourses />} />
+        <Route path="/users/:id/" element={<UserDetail />} />
+        <Route path="/courses" element={<AllCourses />} />
+        <Route path="/logins" element={<RecentLogins />} />
+        <Route path="/goals" element={<GoalTemplateAdmin />} />
+        <Route path="/notifications" element={<AdminNotifications />} />
+        <Route path="/leaderboard" element={<LeaderboardAdmin />} />
+        <Route path="/feedbacks" element={<Feedbacks />} />
+        <Route path="/comments" element={<CommentsAdmin />} />
 
-export default App
+      </Routes>
+    </BrowserRouter>
+  );
+}

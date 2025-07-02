@@ -125,7 +125,7 @@ const borderColor = accent;
     const endpoint = viewMode === "recent" ? "courses/recent" : "courses";
 
     try {
-      const res = await fetch(`http://192.168.1.42:3000/api/${endpoint}`, {
+      const res = await fetch(`http://10.188.218.47:3000/api/${endpoint}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

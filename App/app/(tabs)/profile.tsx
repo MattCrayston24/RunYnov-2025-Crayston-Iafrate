@@ -31,7 +31,7 @@ type Course = {
   start_time: string;
   path?: string;
   email?: string;
-   profile_picture?: string; 
+   profile_picture?: string; // ✅ AJOUTE CECI
   avg_speed?: number;
 
 };
@@ -55,7 +55,7 @@ const borderColor = "#fdd835";
   const updateProfilePicture = async (base64Image: string) => {
   try {
     const token = await getToken();
-    const res = await fetch(`http://192.168.1.42:3000/api/auth/${user?.id}`, {
+    const res = await fetch(`http://10.188.218.47:3000/api/auth/${user?.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -94,7 +94,7 @@ const pickImage = async () => {
 
   if (!result.canceled && result.assets.length > 0) {
     const base64Img = `data:image/jpeg;base64,${result.assets[0].base64}`;
-    updateProfilePicture(base64Img); 
+    updateProfilePicture(base64Img); // 👈 fonction à définir
   }
 };
   
@@ -103,7 +103,7 @@ useEffect(() => {
 
   const fetchGoalHistory = async () => {
   const token = await getToken();
-  const res = await fetch("http://192.168.1.42:3000/api/goals/history", {
+  const res = await fetch("http://10.188.218.47:3000/api/goals/history", {
     headers: { Authorization: `Bearer ${token}` },
   });
   const data = await res.json();
@@ -127,7 +127,7 @@ if (Array.isArray(data)) {
       const token = await getToken();
       console.log("🔑 Token récupéré :", token);
 
-      const res = await fetch(`http://192.168.1.42:3000/api/courses/stats`, {
+      const res = await fetch(`http://10.188.218.47:3000/api/courses/stats`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -150,13 +150,13 @@ if (Array.isArray(data)) {
        const fetchUser = async () => {
         const token = await getToken();
         try {
-          const res = await fetch("http://192.168.1.42:3000/api/auth/me", {
+          const res = await fetch("http://10.188.218.47:3000/api/auth/me", {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           });
           const data = await res.json();
-          setUser(data.user); 
+          setUser(data.user); // <- "user" est le champ que tu as dans ton res.json
         } catch (err) {
           console.error("Erreur lors de la récupération de l'utilisateur :", err);
         }
@@ -170,7 +170,7 @@ if (Array.isArray(data)) {
       const createDailyGoal = async () => {
     const token = await getToken();
     try {
-      await fetch("http://192.168.1.42:3000/api/goals/daily", {
+      await fetch("http://10.188.218.47:3000/api/goals/daily", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
