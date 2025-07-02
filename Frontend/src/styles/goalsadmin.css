@@ -74,3 +74,69 @@
 .goal-template-list li:hover {
   background-color: #333;
 }
+
+
+.btn-edit {
+  background-color: #007bff;
+  color: white;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-edit:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: white;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-delete:hover {
+  background-color: #a71d2a;
+  transform: scale(1.05);
+}
+
+.goal-template-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2c2c2c;
+  border-left: 4px solid #fdd835;
+  padding: 12px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  color: #fff;
+  transition: background-color 0.2s ease;
+}
+
+/* Structure interne */
+.goal-item {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+/* Zone de texte */
+.goal-item span {
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Boutons à droite */
+.goal-actions {
+  display: flex;
+  gap: 10px;
+}

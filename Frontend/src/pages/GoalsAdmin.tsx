@@ -47,47 +47,43 @@ export default function GoalTemplateAdmin() {
   };
 
   const deleteGoal = async (id: number) => {
-  if (!window.confirm("Confirmer suppression ?")) return;
-  const res = await fetch(`http://localhost:3000/api/admin/goals/templates/${id}`, {
-    method: "DELETE",
-    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-  });
+    if (!window.confirm("Confirmer suppression ?")) return;
+    const res = await fetch(`http://localhost:3000/api/admin/goals/templates/${id}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
 
-  const data = await res.json();
+    const data = await res.json();
 
-  if (res.ok) {
-    alert(data.message || "🗑️ Supprimé !");
-    fetchTemplates(); // Refresh
-  } else {
-    alert(data.message || "❌ Erreur suppression");
-  }
-};
-
-
-  
+    if (res.ok) {
+      alert(data.message || "🗑️ Supprimé !");
+      fetchTemplates();
+    } else {
+      alert(data.message || "❌ Erreur suppression");
+    }
+  };
 
   const saveEdit = async (id: number) => {
-  const res = await fetch(`http://localhost:3000/api/admin/goals/templates/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
-    body: JSON.stringify(editValues),
-  });
+    const res = await fetch(`http://localhost:3000/api/admin/goals/templates/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(editValues),
+    });
 
-  const data = await res.json();
+    const data = await res.json();
 
-  if (res.ok) {
-    alert(data.message || "✅ Modifié avec succès !");
-    setEditingId(null);
-    setEditValues({});
-    fetchTemplates(); // Refresh
-  } else {
-    alert(data.message || "❌ Erreur modification");
-  }
-};
-
+    if (res.ok) {
+      alert(data.message || "✅ Modifié avec succès !");
+      setEditingId(null);
+      setEditValues({});
+      fetchTemplates();
+    } else {
+      alert(data.message || "❌ Erreur modification");
+    }
+  };
 
   useEffect(() => {
     fetchTemplates();
@@ -123,45 +119,56 @@ export default function GoalTemplateAdmin() {
         <ul className="goal-template-list">
           {templates.map((t) => (
             <li key={t.id}>
-              {editingId === t.id ? (
-                <>
-                  <input
-                    value={editValues.type || t.type}
-                    onChange={(e) =>
-                      setEditValues({ ...editValues, type: e.target.value })
-                    }
-                  />
-                  <input
-                    type="number"
-                    value={editValues.value || t.value}
-                    onChange={(e) =>
-                      setEditValues({ ...editValues, value: parseFloat(e.target.value) })
-                    }
-                  />
-                  <select
-                    value={editValues.unit || t.unit}
-                    onChange={(e) =>
-                      setEditValues({ ...editValues, unit: e.target.value })
-                    }
-                  >
-                    <option value="km">km</option>
-                    <option value="min">minutes</option>
-                  </select>
-                  <button onClick={() => saveEdit(t.id)}>💾</button>
-                  <button onClick={() => setEditingId(null)}>❌</button>
-                </>
-              ) : (
-                <>
-                  {t.type} {t.value} {t.unit}
-                  <button onClick={() => {
-                    setEditingId(t.id);
-                    setEditValues(t);
-                  }}>
-                    ✏️
-                  </button>
-                  <button onClick={() => deleteGoal(t.id)}>🗑️</button>
-                </>
-              )}
+              <div className="goal-item">
+                {editingId === t.id ? (
+                  <>
+                    <div className="edit-fields">
+                      <input
+                        value={editValues.type || ""}
+                        onChange={(e) =>
+                          setEditValues({ ...editValues, type: e.target.value })
+                        }
+                      />
+                      <input
+                        type="number"
+                        value={editValues.value?.toString() || ""}
+                        onChange={(e) =>
+                          setEditValues({ ...editValues, value: parseFloat(e.target.value) })
+                        }
+                      />
+                      <select
+                        value={editValues.unit || "km"}
+                        onChange={(e) =>
+                          setEditValues({ ...editValues, unit: e.target.value })
+                        }
+                      >
+                        <option value="km">km</option>
+                        <option value="min">minutes</option>
+                      </select>
+                    </div>
+                    <div className="goal-actions">
+                      <button className="btn-edit" onClick={() => saveEdit(t.id)}>💾</button>
+                      <button className="btn-delete" onClick={() => setEditingId(null)}>❌</button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <span>{t.type} {t.value} {t.unit}</span>
+                    <div className="goal-actions">
+                      <button
+                        className="btn-edit"
+                        onClick={() => {
+                          setEditingId(t.id);
+                          setEditValues(t);
+                        }}
+                      >
+                        ✏️
+                      </button>
+                      <button className="btn-delete" onClick={() => deleteGoal(t.id)}>🗑️</button>
+                    </div>
+                  </>
+                )}
+              </div>
             </li>
           ))}
         </ul>
