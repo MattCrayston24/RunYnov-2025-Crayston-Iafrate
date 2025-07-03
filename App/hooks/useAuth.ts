@@ -22,7 +22,7 @@ export function useAuth() {
     }
 
     try {
-      const res = await fetch("http://10.188.218.47:3000/api/auth/me", {
+      const res = await fetch("http://10.15.6.135:3000/api/auth/me", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

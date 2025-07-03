@@ -149,8 +149,8 @@ useEffect(() => {
         const fetchCourse = async () => {
       const token = await getToken();
       const url = isPublic
-        ? `http://192.168.1.42:3000/api/courses/public/${id}`
-        : `http://192.168.1.42:3000/api/courses/${id}`;
+        ? `http://10.15.6.135:3000/api/courses/public/${id}`
+        : `http://10.15.6.135:3000/api/courses/${id}`;
       const res = await fetch(url, {
         headers: isPublic ? {} : { Authorization: `Bearer ${token}` },
       });
@@ -172,7 +172,7 @@ useEffect(() => {
 
   const fetchLikes = async () => {
   const token = await getToken();
-  const res = await fetch(`http://192.168.1.42:3000/api/interactions/${id}/likes`, {
+  const res = await fetch(`http://10.15.6.135:3000/api/interactions/${id}/likes`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -185,7 +185,7 @@ useEffect(() => {
 
 
 const fetchComments = async () => {
-  const res = await fetch(`http://192.168.1.42:3000/api/interactions/${id}/comments`);
+  const res = await fetch(`http://10.15.6.135:3000/api/interactions/${id}/comments`);
   const data = await res.json();
   console.log("🧾 Commentaires récupérés :", data);
   setComments(data);
@@ -196,7 +196,7 @@ const fetchComments = async () => {
 const handleLike = async () => {
   const token = await getToken();
   console.log("❤️ Toggle like...");
-  await fetch(`http://192.168.1.42:3000/api/interactions/${id}/like`, {
+  await fetch(`http://10.15.6.135:3000/api/interactions/${id}/like`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -213,7 +213,7 @@ const handleAddComment = async () => {
   const token = await getToken();
   console.log("💬 Envoi commentaire :", newComment);
 
-  const res = await fetch(`http://192.168.1.42:3000/api/interactions/${id}/comments`, {
+  const res = await fetch(`http://10.15.6.135:3000/api/interactions/${id}/comments`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
